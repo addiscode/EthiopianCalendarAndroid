@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:orientation="vertical">
+    <TextView 
+        android:text="Addiscode Inc."
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:textColor="#c4c4c4"
+        android:textStyle="bold"
+        android:textSize="16dp"/>
+    <TextView 
+        android:text="Addis code is an immerging software company estabilished to provide quality software products world wide.\n\tWe claim delivering a performance tuned and secured systems for Desktop, mobile and web infrastructures.and also we provide a highly experienced professionals for any software project part time or on contract basis.\n\taddiscode is your choice for quality!!!\n
+	        \t\twww.addiscode.com"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#c4c4c4"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:autoLink="web"/>
+    <Button 
+        android:id="@+id/exitCompanyBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Ok"/>
+</LinearLayout>

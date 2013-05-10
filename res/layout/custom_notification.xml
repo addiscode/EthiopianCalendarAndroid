@@ -1,0 +1,25 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="10dp" >
+    <ImageView android:id="@+id/notifIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="10dp" />
+    <TextView android:id="@+id/notifTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/notifIcon"
+        android:textStyle="bold"
+        android:textColor="#4e0808"
+        android:textSize="15dp" />
+    <TextView android:id="@+id/notifText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/notifIcon"
+        android:layout_below="@id/notifTitle"
+        android:textColor="#493a50"
+        android:textSize="12dp" />
+</RelativeLayout>

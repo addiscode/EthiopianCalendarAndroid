@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:orientation="vertical">
+    <TextView 
+        android:text="Ethiopian Calendar v 1.0.0"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textColor="#c4c4c4"
+        android:textStyle="bold"
+        android:textSize="16dp"/>
+    <TextView 
+        android:text="Author: Hafiz Mo\nemail: hafiz@addiscode.com\nCell: +251920198434"
+        android:autoLink="phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#c4c4c4"/>
+    <TextView 
+        android:text="www.addiscode.com"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#c4c4c4"
+        android:textStyle="bold"
+        android:autoLink="web"
+        android:gravity="center_horizontal"/>
+    <TextView 
+        android:text="Thanks to my friends Awol and Ayalkibet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#c4c4c4"/>
+    <Button 
+        android:id="@+id/exitAboutBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Ok"/>
+    
+</LinearLayout>

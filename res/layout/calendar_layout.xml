@@ -1,0 +1,90 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+        <TextView
+            android:id="@+id/todayLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="center_horizontal"
+            android:background="#5c9695" />
+		<RelativeLayout 
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:background="#5c9695">
+		    <LinearLayout 
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:orientation="horizontal"
+		        android:gravity="left">
+		        <ImageView 
+		            android:id="@+id/prevMonthBtn"
+		            android:src="@drawable/prev"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:paddingRight="2dp"/>
+		        <TextView
+		            android:id="@+id/monthLabel"
+		            android:layout_width="80dp"
+		            android:layout_height="wrap_content"
+		            android:gravity="center_horizontal"
+		            android:text="Medium Text"
+		            android:textColor="#e4e8e8" />
+		        <ImageView 
+		            android:id="@+id/nextMonthBtn"
+		            android:src="@drawable/next"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:paddingLeft="2dp"/>
+		    </LinearLayout>
+		    <LinearLayout 
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:orientation="horizontal"
+		        android:gravity="right">
+		        <ImageView 
+		            android:id="@+id/prevYearBtn"
+		            android:src="@drawable/prev"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"/>
+		        <TextView
+		            android:id="@+id/yearLabel"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="Medium Text"
+		            android:textColor="#e4e8e8"
+		            android:paddingLeft="7dp"
+		            android:paddingRight="7dp"/>
+		        <ImageView 
+		            android:id="@+id/nextYearBtn"
+		            android:src="@drawable/next"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"/>
+		    </LinearLayout>
+		</RelativeLayout>
+        <TableLayout 
+            android:id="@+id/calendarTable"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="0,1,2,3,4,5,6"
+            android:background="@android:color/darker_gray">
+            
+        </TableLayout>
+        <ScrollView 
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:fillViewport="true" >
+			<LinearLayout 
+			    	android:id="@+id/eventsList"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:orientation="vertical"
+			        android:gravity="left"
+			        android:paddingTop="3dp"
+			        android:paddingBottom="3dp"
+			        android:background="#5c9695">
+			</LinearLayout>
+		</ScrollView>
+</LinearLayout>
