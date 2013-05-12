@@ -44,8 +44,11 @@
         </receiver>
         <service android:name=".NotificationService"
             	android:label="NOTIFICATION_SERVICE"/>
+         
         <service android:name=".UpdateWidgetService"
             	android:label="Ethiopian Calendar Widget Update Service"/>
+         
+        
     </application>
 
 </manifest>
