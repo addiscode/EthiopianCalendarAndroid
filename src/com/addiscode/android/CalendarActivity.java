@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
@@ -29,7 +30,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class CalendarActivity extends Activity implements View.OnClickListener{
+public class CalendarActivity extends Activity implements View.OnClickListener, View.OnTouchListener{
 	public final Context context = this;
 	public final String tag = "CALENDAR_ACTIVITY";
 	private TableLayout calendarTable;
@@ -224,5 +225,12 @@ public class CalendarActivity extends Activity implements View.OnClickListener{
 			Toast.makeText(context, "view id: " + v.getId(), Toast.LENGTH_SHORT).show();
 			break;
 		}
+	}
+
+
+	public boolean onTouch(View v, MotionEvent event) {
+		int action = event.getAction();
+		Log.i("MULTI", "action: " + action);
+		return true;
 	}
 }

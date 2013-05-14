@@ -40,6 +40,8 @@ public final class R {
         public static final int valentine=0x7f02001a;
         public static final int wheel_bg=0x7f02001b;
         public static final int wheel_val=0x7f02001c;
+        public static final int widget_bg_lower=0x7f02001d;
+        public static final int widget_bg_top=0x7f02001e;
     }
     public static final class id {
         public static final int calendarTable=0x7f060009;
@@ -63,7 +65,10 @@ public final class R {
         public static final int sourceBtn=0x7f06000b;
         public static final int textView1=0x7f060016;
         public static final int todayLabel=0x7f060002;
-        public static final int widgetDateLabel=0x7f060017;
+        public static final int widgetDateLabel=0x7f060019;
+        public static final int widgetDayLabel=0x7f06001a;
+        public static final int widgetLayout=0x7f060017;
+        public static final int widgetMonthLabel=0x7f060018;
         public static final int year=0x7f06000e;
         public static final int yearLabel=0x7f060007;
     }
