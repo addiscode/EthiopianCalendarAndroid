@@ -255,7 +255,7 @@ public class DBHandler extends SQLiteOpenHelper{
  
     	try{
     		String myPath = DATABASE_PATH + DATABASE_NAME;
-    		checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+    		checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
  
     	}catch(Exception e){
     		e.printStackTrace();
