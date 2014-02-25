@@ -186,16 +186,7 @@ public class CalendarActivity extends Activity implements View.OnClickListener, 
 		return drawableId;
 	}
 
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		final Dialog dialog = new Dialog(context);
-		dialog.setContentView(R.layout.dobby);
-		dialog.setTitle("Go to date");
-		dialog.setCanceledOnTouchOutside(true);
-		dialog.setCancelable(true);
-		dialog.show();
-	}
+	
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
