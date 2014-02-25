@@ -59,6 +59,7 @@ public class NotificationService extends Service {
 	    	notifManager.notify(0, notif);
 		}
 		Log.i(tag, "--END SHOWING NOTIFICATIONS --" + String.valueOf(System.currentTimeMillis()));
+		this.stopSelf();
 		return Service.START_NOT_STICKY;
 	}
 	private int getDrawableId(String name) {

@@ -61,7 +61,7 @@ public class WidgetProvider extends AppWidgetProvider {
 				.gregorianToEthiopic();
 		int weekDay = cal.get(Calendar.DAY_OF_WEEK);
 		remoteView.setImageViewBitmap(R.id.widgetMonthLabel,
-				buildBitmap(context, WidgetProvider.etMonths[values[1]-1],180,80,30,50,45));
+				buildBitmap(context, WidgetProvider.etMonths[values[1]-1],180,80,30,50,50));
 		remoteView.setTextViewText(R.id.widgetDateLabel,
 				String.valueOf(values[2]));
 		remoteView.setImageViewBitmap(R.id.widgetDayLabel,
@@ -71,7 +71,7 @@ public class WidgetProvider extends AppWidgetProvider {
 		PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, 0);
 		remoteView.setOnClickPendingIntent(R.id.widgetLayout, appPendingIntent);
 		manager.updateAppWidget(thisWidget, remoteView);
-
+		
 		
 		m.set(AlarmManager.RTC_WAKEUP, TIME.getTimeInMillis(),
 				WidgetProvider.service);

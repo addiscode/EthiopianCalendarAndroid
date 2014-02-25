@@ -12,11 +12,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TabHost;
 
-public class EthiopianCalendarActivity extends TabActivity {
+public class EthiopianCalendarActivity extends TabActivity implements View.OnTouchListener {
     /** Called when the activity is first created. */
 	private final Context context = this;
     @Override
@@ -80,6 +81,12 @@ public class EthiopianCalendarActivity extends TabActivity {
 			break;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	public boolean onTouch(View v, MotionEvent event) {
+		// TODO Auto-generated method stub
+		Log.i("DEBUG", "action: "+ event.getAction());
+		return false;
 	}
     
 

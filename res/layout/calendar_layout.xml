@@ -69,7 +69,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:stretchColumns="0,1,2,3,4,5,6"
-            android:background="@android:color/darker_gray">
+            android:background="@android:color/darker_gray"
+            android:focusable="true">
             
         </TableLayout>
         <ScrollView 

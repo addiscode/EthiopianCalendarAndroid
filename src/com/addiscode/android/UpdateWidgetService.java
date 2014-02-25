@@ -41,7 +41,7 @@ public class UpdateWidgetService extends Service{
 				.gregorianToEthiopic();
 		int weekDay = cal.get(Calendar.DAY_OF_WEEK);
 		remoteView.setImageViewBitmap(R.id.widgetMonthLabel,
-				buildBitmap(context, WidgetProvider.etMonths[values[1]-1],180,80,30,50,45));
+				buildBitmap(context, WidgetProvider.etMonths[values[1]-1],180,80,30,50,50));
 		remoteView.setTextViewText(R.id.widgetDateLabel,
 				String.valueOf(values[2]));
 		remoteView.setImageViewBitmap(R.id.widgetDayLabel,
