@@ -64,26 +64,4 @@ public class WidgetProvider extends AppWidgetProvider {
 		onDisable(context);
 	}
 
-	public Bitmap buildBitmap(Context context, String text, int height, int left, int top, int fontSize, String fontColor) {
-		int width;
-		width = fontSize * text.length();
-		
-		Bitmap bitMap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444);
-		Canvas canvas = new Canvas(bitMap);
-        Paint paint = new Paint(); 
-//        paint.setColor(0x0084c3ff); 
-//        paint.setStyle(Style.FILL); 
-        Typeface typeFace = Typeface.createFromAsset(context.getAssets(),"Roboto-Bold.ttf");
-        canvas.drawPaint(paint); 
-        paint.setTextSize(fontSize);
-        paint.setTextScaleX(1.f);
-        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
-        paint.setAntiAlias(true);
-        paint.setColor(Color.BLACK);
-        paint.setTypeface(typeFace);
-        canvas.drawText(text, left, top, paint);
-        
-        
-        return bitMap;
-	}
 }

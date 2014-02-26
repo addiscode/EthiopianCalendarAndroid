@@ -42,11 +42,11 @@ public class UpdateWidgetService extends Service{
 				.gregorianToEthiopic();
 		int weekDay = cal.get(Calendar.DAY_OF_WEEK);
 		remoteView.setImageViewBitmap(R.id.widgetMonthLabel,
-				buildBitmap(context, WidgetProvider.etMonths[4],100,10,75,58, "#14130d"));
+				buildBitmap(context, WidgetProvider.etMonths[values[1]-1],100,0,75,60, "#14130d"));
 		remoteView.setTextViewText(R.id.widgetDateLabel,
 				String.valueOf(values[2]));
 		remoteView.setImageViewBitmap(R.id.widgetDayLabel,
-				buildBitmap(context, WidgetProvider.etDays[weekDay-1],40,10,30,28, "#10487B"));
+				buildBitmap(context, WidgetProvider.etDays[weekDay-1],40,0,30,25, "#038CDC"));
 		AppWidgetManager manager = AppWidgetManager.getInstance(context);
 		Intent appIntent = new Intent(context, EthiopianCalendarActivity.class);
 		PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, 0);
@@ -65,14 +65,14 @@ public class UpdateWidgetService extends Service{
 	
 	public Bitmap buildBitmap(Context context, String text, int height, int left, int top, int fontSize, String fontColor) {
 		int width;
-		width = fontSize * text.length();
+		width = (int) (fontSize*0.7) * text.length();
 		
 		Bitmap bitMap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444);
 		Canvas canvas = new Canvas(bitMap);
         Paint paint = new Paint(); 
         paint.setColor(0x0084c3ff); 
         paint.setStyle(Style.FILL); 
-        Typeface typeFace = Typeface.createFromAsset(context.getAssets(),"RoboGoogle.ttf");
+        Typeface typeFace = Typeface.createFromAsset(context.getAssets(),"DroidSansEthiopic-Regular.ttf");
         canvas.drawPaint(paint); 
         paint.setTextSize(fontSize);
         paint.setTextScaleX(1.f);

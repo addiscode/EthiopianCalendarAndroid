@@ -4,42 +4,49 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:minWidth="100dp"
-    android:orientation="vertical">
+    android:orientation="vertical" >
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal">
-        
-        <ImageView android:id="@+id/widgetMonthLabel"
-	        android:layout_width="fill_parent"
-   			android:layout_height="fill_parent"
-   			android:layout_gravity="center"
-   			android:background="@drawable/widget_bg_top"/>
-        
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/widgetMonthLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:background="@drawable/widget_bg_top" />
     </LinearLayout>
-    
+
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/widget_bg_lower">
-        
+        android:layout_height="50dp"
+        android:background="@drawable/widget_bg_lower"
+        android:orientation="horizontal"
+        android:paddingBottom="1.0dip"
+        android:paddingLeft="4.0dip"
+        android:paddingRight="4.0dip" >
+
         <TextView
-	        android:id="@+id/widgetDateLabel"
-	        style="@android:style/TextAppearance.Large"
-	        android:textColor="#400000"
-	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="center"
-	        android:gravity="center_horizontal|center_vertical"
-	        android:text="" 
-	        ></TextView>
-         
-    	<ImageView 
-    	    android:id="@+id/widgetDayLabel"
-    	    android:layout_width="fill_parent"
-    	    android:layout_height="wrap_content"
-    	    android:layout_gravity="center_horizontal|center_vertical"/>
+            android:id="@+id/widgetDateLabel"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.8"
+            android:textColor="#038CDC"
+            android:textSize="32dp" />
+        
+        <ImageView
+            android:src="@drawable/dots"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.2" />
+
+        <ImageView
+            android:id="@+id/widgetDayLabel"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0" />
     </LinearLayout>
-     
+
 </LinearLayout>
