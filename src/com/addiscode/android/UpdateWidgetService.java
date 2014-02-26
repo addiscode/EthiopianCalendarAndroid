@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.Paint.Align;
+import android.graphics.Paint.Style;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -41,11 +42,11 @@ public class UpdateWidgetService extends Service{
 				.gregorianToEthiopic();
 		int weekDay = cal.get(Calendar.DAY_OF_WEEK);
 		remoteView.setImageViewBitmap(R.id.widgetMonthLabel,
-				buildBitmap(context, WidgetProvider.etMonths[values[1]-1],180,80,30,50,50));
+				buildBitmap(context, WidgetProvider.etMonths[4],100,10,75,58, "#14130d"));
 		remoteView.setTextViewText(R.id.widgetDateLabel,
 				String.valueOf(values[2]));
 		remoteView.setImageViewBitmap(R.id.widgetDayLabel,
-				buildBitmap(context, WidgetProvider.etDays[weekDay-1],180,40,30,25,30));
+				buildBitmap(context, WidgetProvider.etDays[weekDay-1],40,10,30,28, "#10487B"));
 		AppWidgetManager manager = AppWidgetManager.getInstance(context);
 		Intent appIntent = new Intent(context, EthiopianCalendarActivity.class);
 		PendingIntent appPendingIntent = PendingIntent.getActivity(context, 0, appIntent, 0);
@@ -62,19 +63,26 @@ public class UpdateWidgetService extends Service{
 	}
 
 	
-	public Bitmap buildBitmap(Context context, String text, int width, int height, int left, int top, int fontSize) {
-		Bitmap bitMap = Bitmap.createBitmap(width, height, Bitmap.Config.ALPHA_8);
-		Canvas c = new Canvas(bitMap);
-		Paint paint = new Paint();
-		Typeface typeFace = Typeface.createFromAsset(context.getAssets(),"nyala.ttf");
-//		paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC));
+	public Bitmap buildBitmap(Context context, String text, int height, int left, int top, int fontSize, String fontColor) {
+		int width;
+		width = fontSize * text.length();
+		
+		Bitmap bitMap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444);
+		Canvas canvas = new Canvas(bitMap);
+        Paint paint = new Paint(); 
+        paint.setColor(0x0084c3ff); 
+        paint.setStyle(Style.FILL); 
+        Typeface typeFace = Typeface.createFromAsset(context.getAssets(),"RoboGoogle.ttf");
+        canvas.drawPaint(paint); 
         paint.setTextSize(fontSize);
         paint.setTextScaleX(1.f);
         paint.setFlags(Paint.ANTI_ALIAS_FLAG);
         paint.setAntiAlias(true);
-        paint.setColor(Color.YELLOW);
+        paint.setColor(Color.parseColor(fontColor));
         paint.setTypeface(typeFace);
-        c.drawText(text, left, top, paint);
-		return bitMap;
+        canvas.drawText(text, left, top, paint);
+        
+        
+        return bitMap;
 	}
 }

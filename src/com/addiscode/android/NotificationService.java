@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.List;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -20,13 +21,31 @@ public class NotificationService extends Service {
 	private final IBinder myBinder = new MyBinder();
 	private final Context context = this;
 	private static final String tag = "NOTIFICATION_SERVICE";
+	private static PendingIntent service = null;
 	private DBHandler dbHandler = new DBHandler(context);
 
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		super.onCreate();
+		
+		final AlarmManager m = (AlarmManager) context
+				.getSystemService(Context.ALARM_SERVICE);
+		final Calendar TIME = Calendar.getInstance();
+		TIME.set(Calendar.HOUR_OF_DAY, 0);
+		TIME.set(Calendar.MINUTE, 1);
+		TIME.set(Calendar.SECOND, 1);
+		
+		
+		final Intent i = new Intent(context, UpdateWidgetService.class);
+		if (NotificationService.service == null) {
+			NotificationService.service = PendingIntent.getService(context, 0, i,
+					PendingIntent.FLAG_CANCEL_CURRENT);
+		}
+		
+		
 		Calendar cal = Calendar.getInstance();
+		
 		Log.i(tag, "Showing notification: " + String.valueOf(System.currentTimeMillis()));
 		
 		EthiopicCalendar etCal = new EthiopicCalendar(cal);
@@ -37,8 +56,8 @@ public class NotificationService extends Service {
 		int c=0;
 		for(Event ev: events) {
 			Log.i(tag, ev.getTitle());
-			String i = ev.getIcon().replaceAll("\\.{1}(png|PNG|jpg|JPG|jpeg|JPEG)", "");
-			if(!i.equals(icon)) icon=i;
+			String ic = ev.getIcon().replaceAll("\\.{1}(png|PNG|jpg|JPG|jpeg|JPEG)", "");
+			if(!ic.equals(icon)) icon=ic;
 			c++;
 			eventNames += ev.getTitle();
 			if(c<events.size()) eventNames += ",";
@@ -59,7 +78,8 @@ public class NotificationService extends Service {
 	    	notifManager.notify(0, notif);
 		}
 		Log.i(tag, "--END SHOWING NOTIFICATIONS --" + String.valueOf(System.currentTimeMillis()));
-		this.stopSelf();
+		m.set(AlarmManager.RTC_WAKEUP, TIME.getTimeInMillis(),
+				NotificationService.service);
 		return Service.START_NOT_STICKY;
 	}
 	private int getDrawableId(String name) {
