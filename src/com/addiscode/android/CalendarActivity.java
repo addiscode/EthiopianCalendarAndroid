@@ -3,28 +3,20 @@ package com.addiscode.android;
 import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.Paint.FontMetrics;
+import android.graphics.Paint;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -34,12 +26,15 @@ public class CalendarActivity extends Activity implements View.OnClickListener, 
 	public final Context context = this;
 	public final String tag = "CALENDAR_ACTIVITY";
 	private TableLayout calendarTable;
-	private LinearLayout eventsList;
+	private List<Event> eventsThisMonth;
+	private DBHandler dbHandler;
 	private TextView todayLabel, selectedYearLabel, selectedMonthLabel;
 	private int currentYear, currentMonth, currentDay, selectedYear, selectedMonth, selectedDay, weekDay;
 	private String[] days = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
 	private String[] ethMonths = {"Meskerem","Tikimit","Hidar","Tahisas","Tir","Yekatit","Megabit","Miyazia",
 			"Ginbot","Sene","Hamile","Nehase","Pagume"};
+	
+	
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -47,7 +42,6 @@ public class CalendarActivity extends Activity implements View.OnClickListener, 
 		/*
 		 * Now the GUI is loaded lets do some logic		 */
 		todayLabel = (TextView) findViewById(R.id.todayLabel);
-		eventsList = (LinearLayout) findViewById(R.id.eventsList);
 		calendarTable = (TableLayout) findViewById(R.id.calendarTable);
 		Calendar cal = Calendar.getInstance();
 		int[] values = new EthiopicCalendar(cal.get(Calendar.YEAR),cal.get(Calendar.MONTH)+1,
@@ -56,7 +50,7 @@ public class CalendarActivity extends Activity implements View.OnClickListener, 
 		currentDay = values[2];
 		currentMonth = values[1];
 		currentYear = values[0];
-		todayLabel.setText(values[2] + ", " + ethMonths[values[1]-1] + " " + values[0]);
+		todayLabel.setText("Today is " + values[2] + ", " + ethMonths[values[1]-1] + " " + values[0]);
 		
 		ImageView prevMonthBtn = (ImageView) findViewById(R.id.prevMonthBtn);
 		ImageView nextMonthBtn = (ImageView) findViewById(R.id.nextMonthBtn);
@@ -79,6 +73,10 @@ public class CalendarActivity extends Activity implements View.OnClickListener, 
 		selectedYearLabel.setText(String.valueOf(year));
 		selectedYear = year;
 		selectedMonth = month;
+		
+		dbHandler = new DBHandler(context);
+		eventsThisMonth = dbHandler.getEventsInMonth(selectedYear, selectedMonth);
+		//put weekdays in the first row
 		TableRow tr;
 		int i = 100;
 		tr = new TableRow(context);
@@ -98,6 +96,9 @@ public class CalendarActivity extends Activity implements View.OnClickListener, 
 		 */
 		int startDayOfWeek;
 		
+		LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+	    llp.setMargins(50, 0, 0, 0);
+		
 		EthiopicCalendar ethCal = new EthiopicCalendar(year,month,1);
 		int[] values = ethCal.ethiopicToGregorian();
 		Calendar cal = Calendar.getInstance();
@@ -116,17 +117,32 @@ public class CalendarActivity extends Activity implements View.OnClickListener, 
 				day = (((7*r)+c)-startDayOfWeek)+1;
 				TextView tv = new TextView(context);
 				if(day>0 && day<=maxDay) {
+					
+					//create a new text view
 					tv.setText(String.valueOf(day));
-					tv.setTextColor(Color.rgb(28, 68, 62));
-					tv.setTextSize(14);
+					tv.setTextColor(Color.rgb(0, 253, 255));
+					tv.setTextSize(26);
+					tv.setGravity(Gravity.CENTER);
+//					tv.setBackgroundColor(Color.rgb(243, 237, 243));
+					
+					
 					if(selectedYear>currentYear || (selectedYear==currentYear && selectedMonth>currentMonth) 
 						|| (selectedYear==currentYear && selectedMonth==currentMonth && day >= currentDay))
 						{registerForContextMenu(tv);}
+					
+					//change color for the current date
 					if(currentDay == day) {
-						tv.setBackgroundColor(Color.rgb(243, 237, 243));
-						tv.setTextColor(Color.rgb(75, 68, 26));
-						tv.setTextSize(18);
-					}	
+						tv.setTextColor(Color.rgb(255, 255, 0));
+					}
+					
+					//found an event on date? put a ring on it :)
+					int eventFound = checkEvent(day);
+					if(eventFound > 0) {
+						if(eventFound == 2)
+							tv.setBackgroundResource(R.drawable.date_circle);
+						else
+							tv.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+					} 
 				}
 				tv.setPadding(5, 5, 5, 5);
 				tr.addView(tv);
@@ -134,43 +150,18 @@ public class CalendarActivity extends Activity implements View.OnClickListener, 
 			calendarTable.addView(tr,new TableLayout.LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
 		}
 		
-		/*
-		 * Fetch events
-		 */
-		DBHandler handler = new DBHandler(context);
-		List<Event> events = handler.getEventsInMonth(selectedYear,selectedMonth);
 		
-		/*
-		 * Display events
-		 */
-		eventsList.removeAllViews();
-		LinearLayout listContainer;
-		LinearLayout eventLayout;
-		for(Event ev : events) {
-			String name = ev.getIcon().replaceAll("\\.{1}(png|PNG|jpg|JPG|jpeg|JPEG)", "");
-			listContainer = new LinearLayout(context);
-			listContainer.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.WRAP_CONTENT));
-			ImageView iv = new ImageView(context);
-			iv.setImageResource(getDrawableId(name));
-			iv.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
-			listContainer.addView(iv);
-			eventLayout = new LinearLayout(context);
-			eventLayout.setOrientation(LinearLayout.VERTICAL);
-			eventLayout.setPadding(3, 0, 3, 0);
-			eventLayout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
-			TextView titleLabel = new TextView(context);
-			titleLabel.setText(ev.getTitle());
-			titleLabel.setTextColor(Color.rgb(249, 245, 141));
-			TextView dateLabel = new TextView(context);
-			dateLabel.setText(ev.getDay() + "/" + ev.getMonth() + "/" + ev.getYear());
-			dateLabel.setTextSize(10);
-			dateLabel.setTextColor(Color.WHITE);
-			eventLayout.addView(titleLabel);
-			eventLayout.addView(dateLabel);
-			listContainer.addView(eventLayout);
-			eventsList.addView(listContainer);
-			
+	}
+	
+	private int checkEvent(int selectedDay) {
+		int eventFound = Event.NO_EVENT;
+		for(Event ev: eventsThisMonth) {
+			if(ev.getDay() == selectedDay) {
+				eventFound = Event.IS_INTERNATIONAL;
+				if(ev.isEthiopian()) return Event.IS_ETHIOPIAN;
+			}
 		}
+		return eventFound;
 	}
 	
 	private int getDrawableId(String name) {
