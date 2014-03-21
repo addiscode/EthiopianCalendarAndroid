@@ -5,7 +5,6 @@ import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.List;
 
-import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
@@ -16,9 +15,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
+import android.graphics.Typeface;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.RemoteViews;

@@ -7,6 +7,7 @@
 package com.addiscode.android;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
@@ -108,7 +109,10 @@ public class SimpleGestureFilter extends SimpleOnGestureListener {
 
 		final float xDistance = Math.abs(e1.getX() - e2.getX());
 		final float yDistance = Math.abs(e1.getY() - e2.getY());
-
+		
+		Log.i("Gesture e1:", e1.getX() + ", "+ e1.getY());
+		Log.i("Gesture e2:", e2.getX() + ", "+ e2.getY());
+		
 		if (xDistance > this.SWIPE_MAX_DISTANCE
 				|| yDistance > this.SWIPE_MAX_DISTANCE)
 			return false;
@@ -129,7 +133,7 @@ public class SimpleGestureFilter extends SimpleOnGestureListener {
 				&& yDistance > this.SWIPE_MIN_DISTANCE) {
 			if (e1.getY() > e2.getY()) // bottom to up
 				this.listener.onSwipe(SWIPE_UP);
-			else
+			else if(e1.getY() < e2.getY())
 				this.listener.onSwipe(SWIPE_DOWN);
 
 			result = true;
