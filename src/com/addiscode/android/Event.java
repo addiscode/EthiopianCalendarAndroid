@@ -1,5 +1,8 @@
 package com.addiscode.android;
 
+
+
+
 public class Event {
 	private int id;
 	private String title;
@@ -7,6 +10,13 @@ public class Event {
 	private boolean isEthiopian;
 	private int month,day, year;
 	private boolean isLeapYearMovable;
+	
+	public static final int NO_EVENT = 0;
+	
+	public static final int IS_INTERNATIONAL = 1;
+	
+	public static final int IS_ETHIOPIAN = 2;
+	
 	
 	public int getYear() {
 		return year;
